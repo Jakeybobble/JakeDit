@@ -2,16 +2,15 @@
 	"schemaVersion": 1,
 	"id": "globalplayermaterials",
 	"version": "${version}",
-	"name": "GlobalPlayerMaterials",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "JakeDit + GlobalPlayerMaterials",
+	"description": "Adds a global storage and world manipulation commands to the server.",
 	"authors": [
-		"Me!"
+		"Jakeybobble"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/Jakeybobble/JakeDit"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/globalplayermaterials/icon.png",
 	"environment": "*",
 	"entrypoints": {

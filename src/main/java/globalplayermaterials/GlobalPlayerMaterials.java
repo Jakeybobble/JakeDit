@@ -25,6 +25,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 
+// TODO: Rename and refactor project to "JakeDit"
 public class GlobalPlayerMaterials implements ModInitializer {
 	public static final String MOD_ID = "globalplayermaterials";
 
