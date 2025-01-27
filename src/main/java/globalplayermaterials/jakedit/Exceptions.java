@@ -1,7 +1,7 @@
 package globalplayermaterials.jakedit;
 
+import com.mojang.brigadier.exceptions.Dynamic2CommandExceptionType;
 import com.mojang.brigadier.exceptions.Dynamic3CommandExceptionType;
-import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 
 import net.minecraft.block.Block;
@@ -28,9 +28,8 @@ public class Exceptions {
 				return Text.of(str);
 			});
 
-	public static final DynamicCommandExceptionType INSUFFICIENT_STORAGE = new DynamicCommandExceptionType((missingCount) -> {
-		// TODO: "5 out of 10 needed".
-		String str = String.format("Nope. Not enough blocks (%s more needed)", (int)missingCount);
+	public static final Dynamic2CommandExceptionType INSUFFICIENT_STORAGE = new Dynamic2CommandExceptionType((neededCount, inStorageCount) -> {
+		String str = String.format("Nope. Not enough blocks. (%s needed, %s in storage)", (int)neededCount, (int)inStorageCount);
 		return Text.of(str);
 	});
 

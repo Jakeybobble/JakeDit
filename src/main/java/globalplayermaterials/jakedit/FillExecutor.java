@@ -19,7 +19,6 @@ import net.minecraft.util.math.BlockPos;
 
 public class FillExecutor {
 	
-	// TODO: Make sure no important blocks are in the zone
 	// TODO: Don't run command if player is inside
 	// TODO: Undo memory
 	// TODO: Only set within loaded chunks!
@@ -65,12 +64,6 @@ public class FillExecutor {
 			StorageItem first = storage.getFirst(entry.getKey());
 
 			if (first == null || first.count < entry.getValue()) {
-				//player.sendMessage(
-						//Text.of("Not enough exchangeable blocks in storage to replace blocks in the way."));
-				//player.sendMessage(Text.of("Block in way: " + entry.getKey() + ", count: " + entry.getKey()));
-				if (first != null) {
-					//player.sendMessage(Text.of("In storage: " + first.count));
-				}
 				throw(Exceptions.MISSING_EXCHANGE_BLOCKS.create(entry.getKey(), entry.getValue(), first == null ? 0 : first.count));
 			}
 			;
@@ -79,9 +72,8 @@ public class FillExecutor {
 		
 		// Remove blocks from storage
 		if (!storage.removeSufficientBlocks(new StorageItem[] { new StorageItem(block, volume - skipCount) })) {
-			//player.sendMessage(Text.of("Nope. Not enough blocks. (" + (volume - skipCount) + ")"));
-			//return 0;
-			throw(Exceptions.INSUFFICIENT_STORAGE.create(volume - skipCount));
+			StorageItem first = storage.getFirst(block);
+			throw(Exceptions.INSUFFICIENT_STORAGE.create(volume - skipCount, first.count));
 		}
 
 		// Place the blocks in the world
