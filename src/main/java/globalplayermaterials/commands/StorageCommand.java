@@ -16,6 +16,7 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 
@@ -47,7 +48,7 @@ public class StorageCommand {
 								PlayerMaterialsStorage storage = Storages.getStorageFromPlayer(player);
 								storage.Add(blockFromStack, pickedStack.getCount());
 								
-								player.playSound(SoundEvents.ITEM_BUNDLE_INSERT, 2, 1); // FIXME: Sound doesn't work :-(
+								player.playSoundToPlayer(SoundEvents.ITEM_BUNDLE_INSERT, SoundCategory.BLOCKS, 0.4F, 1.0F);
 								Command(objectCommandContext); // Re-runs this command
 							}
 						}

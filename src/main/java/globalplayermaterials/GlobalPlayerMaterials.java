@@ -48,6 +48,7 @@ public class GlobalPlayerMaterials implements ModInitializer {
 	// TODO: Frame command
 	// TODO: Hollow set command
 	// TODO: Undo command
+	// TODO: Pillar + direction command
 	// TODO: Settings UI command (to disable messages)
 	
 	private void registerCommands() {
