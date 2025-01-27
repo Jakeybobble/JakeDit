@@ -1,7 +1,9 @@
 package globalplayermaterials.jakedit;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -78,17 +80,20 @@ public class FillExecutor {
 
 		// Place the blocks in the world
 		Iterator<BlockPos> iterator = BlockPos.iterate(p1, p2).iterator();
+		
+		List<BlockState> undoList = new ArrayList<BlockState>();
 
 		int setBlockCount = 0;
 		while (iterator.hasNext()) {
 			BlockPos blockPos = iterator.next();
 			if (existingBlocks.containsKey(blockPos))
 				continue;
-
+			undoList.add(serverWorld.getBlockState(blockPos));
 			serverWorld.setBlockState(blockPos, blockState, 2);
 			setBlockCount++;
 		}
-
+		
+		prof.addUndo(new Undo(undoList));
 		player.sendMessage(Text.of("Changed " + setBlockCount + " " + (setBlockCount == 1 ? "Block" : "Blocks") + "."));
 		
 	}

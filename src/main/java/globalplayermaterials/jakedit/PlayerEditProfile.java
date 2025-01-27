@@ -1,6 +1,7 @@
 package globalplayermaterials.jakedit;
 
 import java.util.HashMap;
+import java.util.Stack;
 import java.util.UUID;
 
 import org.jetbrains.annotations.Nullable;
@@ -15,6 +16,7 @@ import net.minecraft.util.math.BlockPos;
 public class PlayerEditProfile {
 	
 	public static final int MAX_CHANGEABLE = 1000; // TODO: Find a good and balanced value for this
+	private static final int MAX_UNDO = 3;
 	
 	private static HashMap<UUID, PlayerEditProfile> profiles = new HashMap<UUID, PlayerEditProfile>();
 	
@@ -28,6 +30,8 @@ public class PlayerEditProfile {
 		}
 		return profiles.get(uuid);
 	}
+	
+	public Stack<Undo> undoStack = new Stack<Undo>();
 	
 	@Nullable
 	public BlockPos p1;
@@ -71,6 +75,13 @@ public class PlayerEditProfile {
 		int volume = width * height * depth;
 		String str = String.format("%s - §c%s§7x§a%s§7x§3%s §7(§f%s§7)", WandCommand.WAND_NAME, width, height, depth, volume <= MAX_CHANGEABLE ? volume : "§cToo many");
 		wandStack.set(DataComponentTypes.CUSTOM_NAME, Text.of(str));
+	}
+	
+	public void addUndo(Undo undo) {
+		if(undoStack.size() > MAX_UNDO) {
+			undoStack.removeFirst();
+		}
+		undoStack.push(undo);
 	}
 	
 	
