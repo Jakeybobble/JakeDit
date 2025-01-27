@@ -34,8 +34,6 @@ public class StorageCommand {
 						// Might be good to have a safeguard which makes sure the item you clicked is the same as the one in the inventory
 						// But it probably doesn't matter.
 						
-						// TODO: Error messages
-						
 						// Grab item
 						int invIndex = (index - this.getVirtualSize() + 9) % PlayerInventory.MAIN_SIZE;
 						ItemStack pickedStack = this.player.getInventory().getStack(invIndex);

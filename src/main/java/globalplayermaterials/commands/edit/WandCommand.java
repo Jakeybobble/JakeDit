@@ -48,8 +48,6 @@ public class WandCommand {
 			
 			player.giveItemStack(wandStack);
 
-			// TODO: Custom texture with data-packs
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

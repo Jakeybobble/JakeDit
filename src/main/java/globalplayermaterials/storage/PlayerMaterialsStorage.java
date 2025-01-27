@@ -23,8 +23,6 @@ public class PlayerMaterialsStorage {
 
 	public StorageItem Add(Block block, int count) {
 
-		// TODO: Find out if there is a cooler way of doing all this
-
 		// Loop through storage to see if it exists
 		StorageItem firstItem = null;
 		for (StorageItem storageItem : inventory) {

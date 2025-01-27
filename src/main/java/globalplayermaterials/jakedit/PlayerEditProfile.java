@@ -65,14 +65,11 @@ public class PlayerEditProfile {
 	
 	public void updateWandName(ItemStack wandStack) {
 		if(p1 == null || p2 == null) return;
-		//int volume = getSelectionVolume();
-		// TODO: Icons depending on the type of selection that is made - Tall, wide or cube
 		int width = Math.abs(p1.getX() - p2.getX()) + 1;
 		int height = Math.abs(p1.getY() - p2.getY()) + 1;
 		int depth = Math.abs(p1.getZ() - p2.getZ()) + 1;
 		int volume = width * height * depth;
 		String str = String.format("%s - §c%s§7x§a%s§7x§3%s §7(§f%s§7)", WandCommand.WAND_NAME, width, height, depth, volume <= MAX_CHANGEABLE ? volume : "§cToo many");
-		//wandStack.set(DataComponentTypes.CUSTOM_NAME, Text.of(WandCommand.WAND_NAME + " - (" + (volume <= MAX_CHANGEABLE ? volume : "Too many") + ")"));
 		wandStack.set(DataComponentTypes.CUSTOM_NAME, Text.of(str));
 	}
 	
