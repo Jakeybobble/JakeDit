@@ -10,6 +10,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import globalplayermaterials.commands.StorageCommand;
 import globalplayermaterials.commands.TestCommand;
 import globalplayermaterials.commands.edit.SetCommand;
+import globalplayermaterials.commands.edit.UndoCommand;
 import globalplayermaterials.commands.edit.WandCommand;
 import globalplayermaterials.commands.suggestionproviders.StorageSuggestionProvider;
 import globalplayermaterials.jakedit.PlayerEditProfile;
@@ -66,6 +67,8 @@ public class GlobalPlayerMaterials implements ModInitializer {
 							.suggests(new StorageSuggestionProvider()).executes(SetCommand::Command)));
 
 			dispatcher.register(literal("wand").executes(WandCommand::Command));
+			
+			dispatcher.register(literal("undo").executes(UndoCommand::Command));
 
 		});
 	}

@@ -68,7 +68,6 @@ public class FillExecutor {
 			if (first == null || first.count < entry.getValue()) {
 				throw(Exceptions.MISSING_EXCHANGE_BLOCKS.create(entry.getKey(), entry.getValue(), first == null ? 0 : first.count));
 			}
-			;
 
 		}
 		
@@ -81,14 +80,14 @@ public class FillExecutor {
 		// Place the blocks in the world
 		Iterator<BlockPos> iterator = BlockPos.iterate(p1, p2).iterator();
 		
-		List<BlockState> undoList = new ArrayList<BlockState>();
+		List<StatePosition> undoList = new ArrayList<StatePosition>();
 
 		int setBlockCount = 0;
 		while (iterator.hasNext()) {
 			BlockPos blockPos = iterator.next();
 			if (existingBlocks.containsKey(blockPos))
 				continue;
-			undoList.add(serverWorld.getBlockState(blockPos));
+			undoList.add(new StatePosition(serverWorld.getBlockState(blockPos), blockPos));
 			serverWorld.setBlockState(blockPos, blockState, 2);
 			setBlockCount++;
 		}

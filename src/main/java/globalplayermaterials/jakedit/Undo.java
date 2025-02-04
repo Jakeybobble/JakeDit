@@ -2,13 +2,11 @@ package globalplayermaterials.jakedit;
 
 import java.util.List;
 
-import net.minecraft.block.BlockState;
-
 public class Undo {
 	
-	public List<BlockState> blocks;
+	public List<StatePosition> blocks;
 	
-	public Undo(List<BlockState> blocks) {
+	public Undo(List<StatePosition> blocks) {
 		this.blocks = blocks;
 	}
 	
