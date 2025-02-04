@@ -40,11 +40,6 @@ public class FillExecutor {
 		
 		int volume = prof.getSelectionVolume();
 		
-		HashMap<BlockPos, Block> existingBlocks = new HashMap<BlockPos, Block>();
-		HashMap<Block, Integer> existingBlocksCount = new HashMap<Block, Integer>();
-		
-		// Check for existing blocks within region to populate existingBlocks and
-		// existingBlocksCount
 		Iterator<BlockPos> iteratorExisting = selectionShape.iterate(p1, p2).iterator();
 		int skipCount = 0;
 		
@@ -54,21 +49,6 @@ public class FillExecutor {
 			if (existingBlockState.isAir())
 				continue;
 			skipCount++;
-			Block existingBlock = existingBlockState.getBlock();
-			existingBlocks.put(blockPos.toImmutable(), existingBlock);
-			existingBlocksCount.put(existingBlock, existingBlocksCount.getOrDefault(existingBlock, 0) + 1);
-		}
-		
-		// Make sure player has all blocks to exchange
-		for (Map.Entry<Block, Integer> entry : existingBlocksCount.entrySet()) {
-			if (entry.getKey() == block)
-				continue;
-			StorageItem first = storage.getFirst(entry.getKey());
-
-			if (first == null || first.count < entry.getValue()) {
-				throw(Exceptions.MISSING_EXCHANGE_BLOCKS.create(entry.getKey(), entry.getValue(), first == null ? 0 : first.count));
-			}
-
 		}
 		
 		// Remove blocks from storage
@@ -85,9 +65,11 @@ public class FillExecutor {
 		int setBlockCount = 0;
 		while (iterator.hasNext()) {
 			BlockPos blockPos = iterator.next();
-			if (existingBlocks.containsKey(blockPos))
+			BlockState worldBlockState = serverWorld.getBlockState(blockPos);
+			if(!worldBlockState.isAir() || worldBlockState.getBlock() == block) {
 				continue;
-			undoList.add(new StatePosition(serverWorld.getBlockState(blockPos), blockPos));
+			}
+			undoList.add(new StatePosition(worldBlockState, blockPos));
 			serverWorld.setBlockState(blockPos, blockState, 2);
 			setBlockCount++;
 		}
